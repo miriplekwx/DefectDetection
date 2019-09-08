@@ -10,7 +10,7 @@ import torch.backends.cudnn as cudnn
 from dataLoader import *
 from utilFuncs import *
 
-warnings.filterwarnings("ignore")
+#warnings.filterwarnings("ignore")
 seed = 69
 random.seed(seed)
 os.environ["PYTHONHASHSEED"] = str(seed)
@@ -18,10 +18,16 @@ np.random.seed(seed)
 torch.cuda.manual_seed(seed)
 torch.backends.cudnn.deterministic = True
 
+'''
 sample_submission_path = '../input/severstal-steel-defect-detection/sample_submission.csv'
 train_df_path = '../input/severstal-steel-defect-detection/train.csv'
 data_folder = "../input/severstal-steel-defect-detection/"
 test_data_folder = "../input/severstal-steel-defect-detection/test_images"
+'''
+sample_submission_path = 'E:/SDDworkspace/input/sample_submission.csv'
+train_df_path = 'E:/SDDworkspace/input/train.csv'
+data_folder = "E:/SDDworkspace/input/"
+test_data_folder = "E:/SDDworkspace/input/test_images"
 
 class Trainer(object):
     '''This class takes care of training and validation of our model'''
@@ -112,4 +118,3 @@ class Trainer(object):
                 print("******** New optimal found, saving state ********")
                 state["best_loss"] = self.best_loss = val_loss
                 torch.save(state, "./model.pth")
-            print()
