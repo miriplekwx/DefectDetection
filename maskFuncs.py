@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import math
 train = pd.read_csv('../input/train.csv')
 
 
@@ -41,13 +41,16 @@ def make_mask(row_id, df):
 
     for idx, label in enumerate(labels.values):
         if label is not np.nan:
-            label = label.split(" ")
+            label = (str)(label).split(" ")
             positions = map(int, label[0::2])
             length = map(int, label[1::2])
             mask = np.zeros(256 * 1600, dtype=np.uint8)
-            for pos, le in zip(positions, length):
-                mask[pos:(pos + le)] = 1
-            masks[:, :, idx] = mask.reshape(256, 1600, order='F')
+            try:
+                for pos, le in zip(positions, length):
+                    mask[pos:(pos + le)] = 1
+                masks[:, :, idx] = mask.reshape(256, 1600, order='F')
+            except Exception as e:
+                continue
     return fname, masks
 
 # Test RLE functions
